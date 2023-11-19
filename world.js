@@ -16,22 +16,18 @@ function engageLookup() {
 
   // Make the AJAX request
   fetchData(country)
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => {
       // Handle the data
-      const ul = document.createElement("ul");
-      for (const object of data) {
-        const li = document.createElement("li");
-        li.textContent = object.name + " - " + object.continent;
-        ul.appendChild(li);
-      }
+
       let parentElement = document.querySelector("#result");
-      if (document.querySelector("ul")) {
-        let oldUl = document.querySelector("ul");
+      if (document.querySelector("table")) {
+        let oldUl = document.querySelector("table");
         oldUl.remove();
       }
 
-      parentElement.appendChild(ul);
+      //parentElement.appendChild(data);
+      parentElement.innerHTML = data;
       console.log("data handled");
       console.log(data);
     })

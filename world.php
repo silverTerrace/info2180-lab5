@@ -15,20 +15,29 @@ $country = isset($_GET['country']) ? $_GET['country'] : '';
 //echo nl2br('country from GET request: ' . $country."\n");
 
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-$stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'");
-error_log("Received quer");
+$stmt = $conn->query("SELECT name, continent, independence_year, head_of_state FROM countries WHERE name LIKE '%$country%'");
+error_log("Received query");
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Return the object as JSON
-//header('Content-Type: application/json');
-//echo "This is the result \n";
+$worldTable = '<table>
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Continent</th>
+            <th>Independence Year</th>
+            <th>Head of State</th>
+            </tr>
+        </thead>
+        <tbody>';
+    foreach ($results as $row)
+    {
+        $worldTable .=  '<tr><td>' . $row['name'] .'</td><td>'. $row['continent'] . '</td><td>' . $row['independence_year'] .'</td>
+                                  <td>' . $row['head_of_state'] .'</td></tr>';
+    }
+    $worldTable .= '</tbody></table>';
 
-//$results = array('message' => 'Data from PHP','messae' => 'Dat from PHP');
-
-//echo "TYPE OF DATA: ".gettype($results)."YES\n";
-
-echo json_encode($results);
+echo $worldTable;
 /*
 ?>
 
