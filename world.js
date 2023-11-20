@@ -1,6 +1,9 @@
 let lookupButton = null;
-function ready() {
-  console.log("deh ya dwg");
+let query = "";
+
+function citySwitch() {
+  query = "&lookup=cities";
+  engageLookup();
 }
 
 document.addEventListener("DOMContentLoaded", prepare);
@@ -8,10 +11,12 @@ document.addEventListener("DOMContentLoaded", prepare);
 function prepare() {
   lookupButton = document.querySelector("#lookup");
   lookupButton.addEventListener("click", engageLookup);
+  citiesLookupButton = document.querySelector("#cityLookup");
+  citiesLookupButton.addEventListener("click", citySwitch);
 }
 
 function engageLookup() {
-  console.log("Engaging");
+  //console.log("Engaging");
   const country = document.querySelector("#country").value;
 
   // Make the AJAX request
@@ -28,27 +33,30 @@ function engageLookup() {
 
       //parentElement.appendChild(data);
       parentElement.innerHTML = data;
-      console.log("data handled");
-      console.log(data);
+      //console.log("data handled");
+      query = "";
+      //console.log(data);
     })
     .catch((error) => {
       // Handle errors
       console.error("Error:", error);
-      console.log("Error:", error);
+      //console.log("Error:", error);
     });
 }
 
 function fetchData(country) {
   // Use the Fetch API to make an AJAX request
-  return fetch("world.php".concat("?country=", country)).then((response) => {
-    console.log("Fetching");
-    if (!response.ok) {
-      console.log("net not ok :" + response);
-      throw new Error("Network response was not ok");
+  return fetch("world.php".concat("?country=", country, query)).then(
+    (response) => {
+      //console.log("Fetching");
+      if (!response.ok) {
+        //console.log("net not ok :" + response);
+        throw new Error("Network response was not ok");
+      }
+      /*console.log(
+        "net is ok.. response is \n" + response + " " + typeof response
+      );*/
+      return response;
     }
-    console.log(
-      "net is ok.. response is \n" + response + " " + typeof response
-    );
-    return response;
-  });
+  );
 }

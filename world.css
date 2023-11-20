@@ -1,1 +1,28 @@
 /* Add your own styles */
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+table {
+  border-spacing: 24px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#country {
+  margin: 16px 0px;
+}
